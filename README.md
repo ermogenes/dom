@@ -319,13 +319,13 @@ Em relação ao pai:
   * em elementos com `position: fixed`;
   * nos elementos `body` e `html`.
 
-Tamanho completo do elemento:
+Tamanho completo do elemento (`offsetWidth` e `offsetHeight`):
 
 ![Propriedades de medição](https://javascript.info/article/size-and-scroll/metric-offset-width-height.svg)
 
 * Todas as propriedades de geometria são nulas para elementos `hidden`.
 
-Medidas internas ao elemento:
+Medidas internas ao elemento (`clientTop` e `clientLeft`):
 
 ![Medidas internas](https://javascript.info/article/size-and-scroll/metric-client-left-top.svg)
 
@@ -334,7 +334,7 @@ Medidas internas ao elemento:
 
 ![Medidas internas - RTL](https://javascript.info/article/size-and-scroll/metric-client-left-top-rtl.svg)
 
-Tamanho interno:
+Tamanho interno (`clientWidth` e `clientHeight`):
 
 ![Tamanho interno](https://javascript.info/article/size-and-scroll/metric-client-width-height.svg)
 
@@ -342,7 +342,7 @@ Tamanho interno:
 
 ![Tamanho interno, sem padding](https://javascript.info/article/size-and-scroll/metric-client-width-nopadding.svg)
 
-Tamanho da área de atuação da rolagem:
+Tamanho da área de atuação da rolagem (`scrollHeight`):
 
 ![Área de rolagem](https://javascript.info/article/size-and-scroll/metric-scroll-width-height.svg)
 
