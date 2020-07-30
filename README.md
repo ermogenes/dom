@@ -276,4 +276,5 @@ O valor de `elem.style` reflete o estilo atribuído ao elemento.
 Para obter o valor correto considerando toda a cascata de estilos, já resolvido na unidade padrão para os navegadores,use `getComputedStyle(elemento, [pseudo])`.
 
 🍌 Não use propriedades de atalho, como `margin` ou `padding`, e sim `marginTop` ou `paddingLeft`. Não há padronização entre navegadores.
+
 🍌🍌 O JavaScript não tem acesso à pseudoclasse `:visited`, por privacidade.
