@@ -352,6 +352,23 @@ Tamanho da área de atuação da rolagem (`scrollHeight`):
 
 🍌 Usar `getComputedStyle` para obter medidas não é recomendado, pois `box-sizing`, medidas `auto` e diferenças de implementação de barras de rolagem quebram o JavaScript.
 
+## Geometria da janela
+
+😖 Tudo sai de controle caso não seja especificado o `<!DOCTYPE HTML>`. Use **sempre**.
+
+* `window.innerWidth` e `window.innerHeight` incluem a medida da barra de rolagem.
+* `document.documentElement.clientWidth` e `document.documentElement.clientHeight` retornam a área disponível para o conteúdo.
+
+😖 A única maneira de obter o tamanho inteiro do conteúdo independente das questões históricas das implementações dos navegadores é obtendo o maior valor entre `document.body.scrollHeight`, `document.documentElement.scrollHeight`, `document.body.offsetHeight`, `document.documentElement.offsetHeight`, `document.body.clientHeight` e `document.documentElement.clientHeight`.
+
+### Rolagem
+
+Há inconsistência em medidas de rolagem também. Não use `document.documentElement.scrollLeft`/`scrollTop`. Use as propriedades somente-para-leitura `window.pageXOffset` e `pageYOffset`, e altere usando `window.scrollBy(x,y)` (relativo) e `window.scrollTo(x,y)` (absoluto).
+
+Para rolar de forma que o topo de `elem` fique visível posicionado no topo da janela, use `elem.scrollIntoView()`. Use `elem.scrollIntoView(false)` para usar as bases em vez dos topos.
+
+💡 `document.body.style.overflow = "hidden"` congela a rolagem, e `document.body.style.overflow = ""` volta para o estado anterior.
+
 ---
 
 _Disclaimer_: este conteúdo é um resumo pessoal do assunto com muitos trechos adaptados de [The Modern JavaScript Tutorial](https://javascript.info/) (CC-BY-NC-SA), do qual respeita os [termos de uso](https://javascript.info/terms).
