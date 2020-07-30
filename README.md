@@ -307,9 +307,11 @@ Desconsiderando a margem (que não faz parte do elemento), a geometria do elemen
 
 As propriedades abaixo indicam como obter essas medidas, em `px`.
 
+![Propriedades de medição](https://javascript.info/article/size-and-scroll/metric-all.svg)
+
 Em relação ao pai:
 
-![Propriedades de medição](https://javascript.info/article/size-and-scroll/metric-all.svg)
+![Propriedades de medição em relação ao pai](https://javascript.info/article/size-and-scroll/metric-offset-parent.svg)
 
 * `offsetParent`, `offsetLeft` e `offsetTop` são calculados em relação ao pai (de acordo com `position`, ou `td`/`th`, ou `table`, ou `body`);
 * `offsetParent` é `null` se:
