@@ -1,6 +1,6 @@
 # Ambiente de execução JavaScript
 
-Códigos JavaScript são executados em um ambiente como um navegador (Chorme, Firefox), um servidor (Node, Deno) ou qualquer outro tipo de plataforma.
+Códigos JavaScript são executados em um ambiente como um navegador (Chrome, Firefox), um servidor (Node, Deno) ou qualquer outro tipo de plataforma.
 
 Quando executado em um navegador, é criada uma estrutura de objetos chamada BOM (_Browser Object Model_) que pode ser manipulada livremente.
 
