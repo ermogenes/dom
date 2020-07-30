@@ -279,6 +279,77 @@ Para obter o valor correto considerando toda a cascata de estilos, já resolvido
 
 🍌🍌 O JavaScript não tem acesso à pseudoclasse `:visited`, por privacidade.
 
+## Geometria de elementos
+
+Veja esse [exemplo](https://javascript.info/size-and-scroll#sample-element):
+
+```html
+<div id="example">
+  ...Text...
+</div>
+<style>
+  #example {
+    width: 300px;
+    height: 200px;
+    border: 25px solid #E8C48F;
+    padding: 20px;
+    overflow: auto;
+  }
+</style>
+```
+
+Desconsiderando a margem (que não faz parte do elemento), a geometria do elemento é:
+
+![Geometria do elemento](https://javascript.info/article/size-and-scroll/metric-css.svg)
+
+* A medida da barra de rolagem conta! Ela é descontada de `width` para obter a medida disponível para o conteúdo.
+* O conteúdo pode vazar para o `padding-bottom`, em caso de `overflow`.
+
+As propriedades abaixo indicam como obter essas medidas, em `px`.
+
+Em relação ao pai:
+
+![Propriedades de medição](https://javascript.info/article/size-and-scroll/metric-all.svg)
+
+* `offsetParent`, `offsetLeft` e `offsetTop` são calculados em relação ao pai (de acordo com `position`, ou `td`/`th`, ou `table`, ou `body`);
+* `offsetParent` é `null` se:
+  * o elemento está `hidden`;
+  * em elementos com `position: fixed`;
+  * nos elementos `body` e `html`.
+
+Tamanho completo do elemento:
+
+![Propriedades de medição](https://javascript.info/article/size-and-scroll/metric-offset-width-height.svg)
+
+* Todas as propriedades de geometria são nulas para elementos `hidden`.
+
+Medidas internas ao elemento:
+
+![Medidas internas](https://javascript.info/article/size-and-scroll/metric-client-left-top.svg)
+
+* Na prática, a medida da borda.
+* `clientLeft` pode conter o tamanho da barra de rolagem, para textos RTL:
+
+![Medidas internas - RTL](https://javascript.info/article/size-and-scroll/metric-client-left-top-rtl.svg)
+
+Tamanho interno:
+
+![Tamanho interno](https://javascript.info/article/size-and-scroll/metric-client-width-height.svg)
+
+* Não inclui barras de rolagem e bordas, mas inclui `padding`:
+
+![Tamanho interno, sem padding](https://javascript.info/article/size-and-scroll/metric-client-width-nopadding.svg)
+
+Tamanho da área de atuação da rolagem:
+
+![Área de rolagem](https://javascript.info/article/size-and-scroll/metric-scroll-width-height.svg)
+
+![Área já rolada](https://javascript.info/article/size-and-scroll/metric-scroll-top.svg)
+
+* `scrollLeft` e `scrollTop` podem ser ajustados para rolar o conteúdo.
+
+🍌 Usar `getComputedStyle` para obter medidas não é recomendado, pois `box-sizing`, medidas `auto` e diferenças de implementação de barras de rolagem quebram o JavaScript.
+
 ---
 
 _Disclaimer_: este conteúdo é um resumo pessoal do assunto com muitos trechos adaptados de [The Modern JavaScript Tutorial](https://javascript.info/) (CC-BY-NC-SA), do qual respeita os [termos de uso](https://javascript.info/terms).
