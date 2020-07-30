@@ -361,13 +361,35 @@ Tamanho da área de atuação da rolagem (`scrollHeight`):
 
 😖 A única maneira de obter o tamanho inteiro do conteúdo independente das questões históricas das implementações dos navegadores é obtendo o maior valor entre `document.body.scrollHeight`, `document.documentElement.scrollHeight`, `document.body.offsetHeight`, `document.documentElement.offsetHeight`, `document.body.clientHeight` e `document.documentElement.clientHeight`.
 
-### Rolagem
+## Rolagem
 
 Há inconsistência em medidas de rolagem também. Não use `document.documentElement.scrollLeft`/`scrollTop`. Use as propriedades somente-para-leitura `window.pageXOffset` e `pageYOffset`, e altere usando `window.scrollBy(x,y)` (relativo) e `window.scrollTo(x,y)` (absoluto).
 
 Para rolar de forma que o topo de `elem` fique visível posicionado no topo da janela, use `elem.scrollIntoView()`. Use `elem.scrollIntoView(false)` para usar as bases em vez dos topos.
 
 💡 `document.body.style.overflow = "hidden"` congela a rolagem, e `document.body.style.overflow = ""` volta para o estado anterior.
+
+## Coordenadas
+
+Use `elem.getBoundingClientRect()` para obter um objeto `DOMRect` com as propriedades abaixo contendo as coordenadas do menor retângulo onde o elemento cabe inteiramente.
+
+![Coordenadas](https://javascript.info/article/coordinates/coordinates.svg)
+
+* `x === left` e `y === top` são relativas à janela e podem ser negativas em caso de rolagem;
+* `width` e `height` podem ser negativas, se o retângulo for definido RTL;
+* `right === x + width` e `bottom ===  y + height`, e não tem o mesmo comportamento de `position: fixed`;
+* Coordenadas podem ser números decimais.
+
+De modo geral:
+
+* Coordenadas relativas à janela (_client_) são obtidas com `elem.getBoundingClientRect()`;
+* Coordenadas relativas ao documento (_page_) devem somar a rolagem corrente (`window.pageXOffset` e `pageYOffset`).
+
+![Coordenadas relativas](https://javascript.info/article/coordinates/document-and-window-coordinates-scrolled.svg)
+
+### Obtendo elemento em uma coordenada específica
+
+Use `document.elementFromPoint(x, y)` para obter o elemento na coordenada da janela (`null` em caso de estar fora da janela).
 
 ---
 
