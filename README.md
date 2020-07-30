@@ -18,7 +18,7 @@ Contém, entre outras coisas, os objetos:
 - `frames`, que contém os _frames_ do documento;
 - `document`, que contém o documento atual, seguindo o modelo DOM.
 
-💡 Veja/navegue pela estrutura de um objeto qualquer usando `console.dir` e `console.log`.
+💡 Veja/navegue pela estrutura de um objeto qualquer usando `console.dir` (para explorar suas propriedades) e `console.log` (para ver sua árvore no DOM).
 
 # DOM - _Document Object Model_
 
@@ -65,7 +65,7 @@ Para garantir a integridade do DOM, algumas autocorreções são feitas:
 
 🍌 As ferramentas de desenvolvedor do navegador ocultam nós que só contenham espaços e/ou quebras de linha (por simplicidade), mas eles existem no DOM.
 
-## Prinipais tipos de nós
+## Principais tipos de nós
 
 - Documento: nó raiz;
 - Elemento: nós contendo as _tags_ do documento;
@@ -112,8 +112,7 @@ Há alguns auxiliares específicos para tabelas:
 
 ## Obtendo elementos usando o atributo `id`
 
-Use:
-- `document.getElementById('myId')` para obter o elemento de `id` igual a `myId`, não importa em que parte do documento.
+Use `document.getElementById('myId')` para obter o elemento de `id` igual a `myId`, não importa em que parte do documento.
 
 🍌 É criada automaticamente uma variável global para cada elemento com o atributo `id`, com o nome equivalente. Seu uso não é recomendado pois se outra variável for criada com o mesmo nome ela possui precedência.
 
@@ -127,10 +126,121 @@ Use:
 - `elem.contains(outroElem)` verifica se `outroElem` é descendente de `elem`;
 - `elem.closest(cssSelector)` obtém o ancestral mais próximo de `elem` que atende `cssSelector` (incluíndo possivelmente `elem`).
 
-## Outros métodos
+## Outros métodos para obtenção de elementos
 
 Podem ser chamados no singular (`getElement_`) para obter o primeiro elemento, ou no plural (`getElements_`) para obter uma coleção **viva** com todos os elementos.
 
 - `elem.getElementsByTagName(tag)` obtém elementos pela _tag_ (`"*"` para qualquer _tag_);
-- `elem.getElementsByClassName(class)` obtém elementos que contenham a class indicada;
+- `elem.getElementsByClassName(class)` obtém elementos que contenham a classe indicada;
 - `document.getElementsByName(name)` obtém elementos (em todo o documento) pelo atributo `name`.
+
+## Nós
+
+Tudo no DOM são nós. Eles seguem a seguinte hierarquia de classes:
+
+* `Object`: classe base do JavaScript.
+  * `EventTarget`: classe base abstrata, para suporte a eventos.
+    * `Node`: classe base abstrata com os _getters_ de navegação.
+      * `Text`: nós de texto.
+      * `Comment`: nós de comentário.
+      * `Element`: elementos do DOM, com implementações da navegação.
+        * `SVGElement`: _tags_ SVG.
+        * `XMLElement`: _tags_ XML.
+        * `HTMLElement`: _tags_ HTML.
+          * `HTMLBodyElement`: _tag_ `body`.
+          * `HTMLInputElement`: _tag_ `input`.
+          * `HTMLAnchorElement`: _tag_ `a`.
+          * ...
+      * ...
+
+## Conteúdo de elementos
+
+Podemos obter e alterar o conteúdo de um elemento usando `innerHTML` (conteúdo e de seus descendentes) e `outerHTML` (incluindo também a si próprio).
+
+* Os valores retornados e gravados são strings.
+* Em uma gravação, o antigo elemento é removido e o novo gravado (recarregando imagens, perdendo seleção em campos de texto, etc.).
+* O navegador processa a autocorreção;
+* Os `script`'s não são executados.
+
+💡 Para nós de texto ou comentários, use `data`.
+
+Para obter somente o texo, sem as _tags_, use `textContent`. Gravar usando essa propriedade garante que nenhuma _tag_ será injetada.
+
+Para obter o valor alterável pelo usuário em elementos de formulário, use `value`.
+
+## Visibilidade
+
+O atributo `hidden` possui a mesma especificação de `style=display:none`.
+
+Ex:
+
+```html
+<div id="elem">Elemento piscante</div>
+<script>
+  setInterval(() => elem.hidden = !elem.hidden, 1000);
+</script>
+```
+
+## Obtendo atributos não-padronizados
+
+Não são criadas propriedades automaticamente, mas podem ser acessadas usando `hasAttribute(attr)`, `getAttribute(attr)`, `setAttribute(attr, valor)`, `removeAttribute(attr)` e iterados usando a coleção `attributes`.
+
+Atributos `data-*` são preferíveis, e estarão disponíveis em `dataset`.
+
+Ex.:
+
+```html
+<body data-especie-relacionada="Elefante">
+<script>
+  alert(document.body.dataset.especieRelacionada); // Elefante
+</script>
+```
+
+## Criando elementos
+
+Criação:
+
+* `document.createElement(tag)` cria um elemento do tipo adequado para a tag informada;
+* `document.createTextNode(texto)` cria um elemento de texto.
+
+Ex.:
+
+```js
+let boxAlerta = document.createElement('div');
+boxAlerta.className = "alerta";
+boxAlerta.innerHTML = "<strong>Atenção!</strong> Fique esperto!";
+```
+
+Gera em `boxAlerta`:
+
+```html
+<div class="alerta"><strong>Atenção!</strong> Fique esperto!</div>
+```
+
+## Inserindo elementos
+
+Para inserir elementos, escolha um nó base e chame o método adequado passando outro elemento, uma lista de elementos (cada um em um argumento) ou uma (ou mais) string(s).
+
+* `no.append`: como último elemento dentro do nó.
+* `no.prepend`: como primeiro elemento do nó;
+* `no.before`: como o último elemento anterior ao nó;
+* `no.after`: como primeiro elemento após o nó;
+* `no.replaceWith`: substitui o nó, na mesma posição.
+
+Strings serão inseridas de forma segura, como em `textContent`. Para inserir como tags a serem processadas, use:
+
+* `no.insertAdjacentHTML("beforebegin", string)`: na mesma posição de `before`;
+* `no.insertAdjacentHTML("afterbegin", string)`: na mesma posição de `prepend`;
+* `no.insertAdjacentHTML("beforeend", string)`: na mesma posição de `append`;
+* `no.insertAdjacentHTML("afterend", string)`: na mesma posição de `after`.
+
+Também podem ser usados `insertAdjacentText` e `insertAdjacentElement`.
+
+## Removendo um elemento
+
+Use `remove`.
+
+## Clonando elementos
+
+* `elem.cloneNode(false)`: clonagem rasa.
+* `elem.cloneNode(true)`: clonagem profunda.
