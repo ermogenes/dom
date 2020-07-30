@@ -278,3 +278,7 @@ Para obter o valor correto considerando toda a cascata de estilos, já resolvido
 🍌 Não use propriedades de atalho, como `margin` ou `padding`, e sim `marginTop` ou `paddingLeft`. Não há padronização entre navegadores.
 
 🍌🍌 O JavaScript não tem acesso à pseudoclasse `:visited`, por privacidade.
+
+---
+
+_Disclaimer_: este conteúdo é um resumo pessoal do assunto com muitos trechos adaptados de [The Modern JavaScript Tutorial](https://javascript.info/) (CC-BY-NC-SA), do qual respeita os [termos de uso](https://javascript.info/terms).
