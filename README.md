@@ -238,9 +238,42 @@ Também podem ser usados `insertAdjacentText` e `insertAdjacentElement`.
 
 ## Removendo um elemento
 
-Use `remove`.
+Use `elem.remove()`.
 
 ## Clonando elementos
 
+Para criar cópias idênticas de um elemento:
+
 * `elem.cloneNode(false)`: clonagem rasa.
 * `elem.cloneNode(true)`: clonagem profunda.
+
+## Estilos com `style`
+
+Usando `style`:
+
+* `elem.style.top` obtém/altera o conteúdo do estilo `top` (use as unidades na string, como em `'20px'`).
+* `elem.style.cssText` obtém/altera **todo** o estilo do objeto, na sintaxe CSS (e aceita `!important`).
+
+Todas as propriedades são nomeadas usando _camelCase_. Onde houver um `-`, o próximo caracter é maiúsculo.
+
+💡 Gravar `""` faz o navegador resetar o elemento.
+
+Só deve ser utilizado quando envolver cálculos. Em outra situações, usar `class`.
+
+## Estilos com `class`
+
+* O atributo `class` está disponível em `elem.className`, como uma string.
+* Para manipular a lista de classes, use `classList` (iterar com `for...of`):
+  * `add("classe")` adiciona `"classe"`;
+  * `remove("classe")` remove `"classe"`;
+  * `toggle("classe")` adiciona/remove `"classe"`, conforme o caso;
+  * `contains("classe")` verifica se `"classe"` existe em `classList`.
+
+## Estilos computados/resolvidos
+
+O valor de `elem.style` reflete o estilo atribuído ao elemento.
+
+Para obter o valor correto considerando toda a cascata de estilos, já resolvido na unidade padrão para os navegadores,use `getComputedStyle(elemento, [pseudo])`.
+
+🍌 Não use propriedades de atalho, como `margin` ou `padding`, e sim `marginTop` ou `paddingLeft`. Não há padronização entre navegadores.
+🍌🍌 O JavaScript não tem acesso à pseudoclasse `:visited`, por privacidade.
