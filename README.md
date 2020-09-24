@@ -164,7 +164,7 @@ Podemos obter e alterar o conteúdo de um elemento usando `innerHTML` (conteúdo
 
 💡 Para nós de texto ou comentários, use `data`.
 
-Para obter somente o texo, sem as _tags_, use `textContent`. Gravar usando essa propriedade garante que nenhuma _tag_ será injetada.
+Para obter somente o texto, sem as _tags_, use `textContent`. Gravar usando essa propriedade garante que nenhuma _tag_ será injetada.
 
 Para obter o valor alterável pelo usuário em elementos de formulário, use `value`.
 
